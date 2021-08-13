@@ -1,2 +1,3 @@
 # Siemens-MS45.1
-RR Definitions for MS45.1 ZHP
+RR ECU Editor Definitions for MS45.1 ZHP
+ADX file for logging using tunerpro
