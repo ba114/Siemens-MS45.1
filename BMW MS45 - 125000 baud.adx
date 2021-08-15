@@ -1,12 +1,12 @@
 <ADXFORMAT version="1.01">
-  <!-- Written 08/13/2021 21:25:37 -->
+  <!-- Written 08/15/2021 21:08:25 -->
   <ADXHEADER>
     <guid>4948f148-506d-4384-b7b8-364330319c5f</guid>
     <flags>0x10000</flags>
     <objectcount>46</objectcount>
     <userversion>1.0</userversion>
     <author>Murray - BTS</author>
-    <desc>This logging definition has been made for use with the android application ALDLdroid to log the MS45 DME found in E46, E83 and E60 BMWs.&#013;&#010;&#013;&#010;&#010;&#010;For more information and support contact Murray at:&#013;&#010;&#010;Bavariantuningsolutions@gmail.com</desc>
+    <desc>This logging definition has been made for use with tunerpo to log the MS45 DME found in E46, E83 and E60 BMWs.&#013;&#010;&#013;&#010;&#010;&#010;For more information and support contact Murray at:&#013;&#010;&#010;Bavariantuningsolutions@gmail.com</desc>
     <baud>125000</baud>
     <parity>2</parity>
     <DEFAULTS datasizeinbits="8" sigdigits="2" outputtype="3" baud="0" signed="0" lsbfirst="0" float="0" />
