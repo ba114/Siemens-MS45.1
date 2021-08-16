@@ -1,5 +1,5 @@
 <ADXFORMAT version="1.01">
-  <!-- Written 08/16/2021 15:42:46 -->
+  <!-- Written 08/16/2021 15:40:58 -->
   <ADXHEADER>
     <guid>4948f148-506d-4384-b7b8-364330319c5f</guid>
     <flags>0x10000</flags>
@@ -526,9 +526,9 @@
   </ADXMACRO>
 
   <ADXCSENDCOMMAND id="SETBAUD" idhash="0xE65BB810" title="SetBaud">
-    <desc>Sets baud rate to 125000kbps</desc>
+    <desc>Sets baud rate to 125000kbps in periodic transmission mode</desc>
     <baud>9600</baud>
-    <bytestring size="0xB">B812F10610810601E8486B</bytestring>
+    <bytestring size="0xB">B812F10610820601E84868</bytestring>
   </ADXCSENDCOMMAND>
 
   <ADXCLISTENPACKET id="BAUDRESPONSE" idhash="0xC96F5A30" title="BaudResponse" flags="0x00000004">
@@ -540,7 +540,6 @@
   </ADXCLISTENPACKET>
 
   <ADXMACRO id="MONITORMACRO" idhash="0xD177CF5B" title="Monitor Macro" basecmdflags="0x01" repeatcount="1">
-    <NODE commandID="REQUESTCUSTOM" repeatcount="1" />
     <NODE commandID="REPLYCUSTOM" repeatcount="1" />
     <NODE commandID="pause" repeatcount="1" />
   </ADXMACRO>
@@ -556,6 +555,7 @@
     <NODE commandID="SetupCustom" repeatcount="1" />
     <NODE commandID="SetupReply" repeatcount="1" />
     <NODE commandID="pause" repeatcount="1" />
+    <NODE commandID="REQUESTCUSTOM" repeatcount="1" />
   </ADXMACRO>
 
   <ADXCSENDCOMMAND id="SetupCustom" idhash="0x4C3AD2B0" title="Setup Custom">
