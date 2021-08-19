@@ -1,9 +1,9 @@
 <ADXFORMAT version="1.01">
-  <!-- Written 08/16/2021 15:40:58 -->
+  <!-- Written 08/16/2021 19:46:17 -->
   <ADXHEADER>
     <guid>4948f148-506d-4384-b7b8-364330319c5f</guid>
     <flags>0x10000</flags>
-    <objectcount>46</objectcount>
+    <objectcount>48</objectcount>
     <userversion>1.0</userversion>
     <author>Murray - BTS</author>
     <desc>This logging definition has been made for use with tunerpo to log the MS45 DME found in E46, E83 and E60 BMWs.&#013;&#010;&#013;&#010;&#010;&#010;For more information and support contact Murray at:&#013;&#010;&#010;Bavariantuningsolutions@gmail.com</desc>
@@ -12,6 +12,7 @@
     <DEFAULTS datasizeinbits="8" sigdigits="2" outputtype="3" baud="0" signed="0" lsbfirst="0" float="0" />
     <connectcmd>CONNECT</connectcmd>
     <monitorcmd>MONITORMACRO</monitorcmd>
+    <disconnectcmd>STEP5STOPCOMMS</disconnectcmd>
   </ADXHEADER>
 
   <ADXVALUE id="PVS" idhash="0xCD31415B" title="Accelerator Pedal">
@@ -525,13 +526,18 @@
     <NODE commandID="BAUDRESPONSE" repeatcount="1" />
   </ADXMACRO>
 
-  <ADXCSENDCOMMAND id="SETBAUD" idhash="0xE65BB810" title="SetBaud">
+  <ADXCSENDCOMMAND id="STARTDIAGOSTIC" idhash="0xF6E82947" title="Step1 StartDiagostic81h">
+    <baud>9600</baud>
+    <bytestring size="0x7">B812F1021081C8</bytestring>
+  </ADXCSENDCOMMAND>
+
+  <ADXCSENDCOMMAND id="SETBAUD" idhash="0xE65BB810" title="Step3 StartDiagnostic82h">
     <desc>Sets baud rate to 125000kbps in periodic transmission mode</desc>
     <baud>9600</baud>
     <bytestring size="0xB">B812F10610820601E84868</bytestring>
   </ADXCSENDCOMMAND>
 
-  <ADXCLISTENPACKET id="BAUDRESPONSE" idhash="0xC96F5A30" title="BaudResponse" flags="0x00000004">
+  <ADXCLISTENPACKET id="BAUDRESPONSE" idhash="0xC96F5A30" title="Step3 Response" flags="0x00000004">
     <baud>9600</baud>
     <listentimeout>500</listentimeout>
     <packetbodylength>22</packetbodylength>
@@ -550,30 +556,39 @@
   </ADXCLISTENSILENCE>
 
   <ADXMACRO id="CONNECT" idhash="0xE7B186B1" title="Connect" repeatcount="1">
-    <NODE commandID="BAUD" repeatcount="1" />
+    <NODE commandID="STARTDIAGOSTIC" repeatcount="1" />
     <NODE commandID="pause" repeatcount="1" />
     <NODE commandID="SetupCustom" repeatcount="1" />
     <NODE commandID="SetupReply" repeatcount="1" />
     <NODE commandID="pause" repeatcount="1" />
+    <NODE commandID="SETBAUD" repeatcount="1" />
+    <NODE commandID="BAUDRESPONSE" repeatcount="1" />
+    <NODE commandID="pause" repeatcount="1" />
     <NODE commandID="REQUESTCUSTOM" repeatcount="1" />
   </ADXMACRO>
 
-  <ADXCSENDCOMMAND id="SetupCustom" idhash="0x4C3AD2B0" title="Setup Custom">
+  <ADXCSENDCOMMAND id="STEP5STOPCOMMS" idhash="0x5ACA4757" title="Step5 StopComms">
+    <bytestring size="0x6">B812F10182D8</bytestring>
+  </ADXCSENDCOMMAND>
+
+  <ADXCSENDCOMMAND id="SetupCustom" idhash="0x4C3AD2B0" title="Step2 SetupDDLI">
+    <baud>9600</baud>
     <bytestring size="0xD9">B812F1D42CF0020101411401020201413401020301413C01020401410401020501411F01020601417401020701412C01020801412D01020901411101020A01411C01020B01410A01020C01418101020D02410E01020F02411501021101411E01021201411A01021301418301021401418701021501418501021601418801021701418401021801418601021902418901021B02418A01021D01414F01021E01410B01021F02411201022102411801022301412201022401411301022501417501022601410601022701410801022801412601022901410D01C7</bytestring>
   </ADXCSENDCOMMAND>
 
-  <ADXCLISTENPACKET id="SetupReply" idhash="0x05AE6462" title="Setup Reply" flags="0x00000004">
+  <ADXCLISTENPACKET id="SetupReply" idhash="0x05AE6462" title="Step2 DDLIReply" flags="0x00000004">
+    <baud>9600</baud>
     <listentimeout>500</listentimeout>
     <packetbodylength>224</packetbodylength>
     <packetoffsetinbody>0</packetoffsetinbody>
     <packetsize>224</packetsize>
   </ADXCLISTENPACKET>
 
-  <ADXCSENDCOMMAND id="REQUESTCUSTOM" idhash="0xF91AABE2" title="RequestCustom">
+  <ADXCSENDCOMMAND id="REQUESTCUSTOM" idhash="0xF91AABE2" title="Step4 RequestDDLI">
     <bytestring size="0x7">B812F10221F088</bytestring>
   </ADXCSENDCOMMAND>
 
-  <ADXCLISTENPACKET id="REPLYCUSTOM" idhash="0xBA115651" title="ReplyCustom" flags="0x00000001">
+  <ADXCLISTENPACKET id="REPLYCUSTOM" idhash="0xBA115651" title="Step4 DDLIReply" flags="0x00000001">
     <listentimeout>500</listentimeout>
     <packetbodylength>48</packetbodylength>
     <packetoffsetinbody>6</packetoffsetinbody>
